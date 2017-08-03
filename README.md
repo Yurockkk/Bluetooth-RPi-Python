@@ -1,5 +1,5 @@
 # Bluetooth-RPi-Python
-A Python script running on Raspberry Pi 3 to receive commands (data) from / send executed results to an Android Device over bluetooth. Bluetooth-RPi-Python is used with this Android App: [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi) 
+A Python script running on Raspberry Pi 3 to receive commands (SSID & password) from / send executed results to an Android Device over bluetooth. Bluetooth-RPi-Python is used with this Android App: [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi) 
 
 ## Instruction
 
@@ -15,7 +15,7 @@ Open terminal, edit this file
 
 `sudo nano /etc/systemd/system/dbus-org.bluez.service`
 
-Add `-C` at the end of the `ExecStart=` line, to start the bluetooth daemon in 'compatibility' mode. Add a new `ExecStartPost=` immediately after that line, to add the SP Profile. The two lines should look like this:
+Add `-C` at the end of the `ExecStart=` line, to start the bluetooth daemon in 'compatibility' mode. Add `ExecStartPost=/usr/bin/sdptool add SP` immediately after that line, to add the SP Profile. The two lines should look like this:
 
 `ExecStart=/usr/lib/bluetooth/bluetoothd -C`
 
@@ -35,7 +35,7 @@ NOTE: make sure your RPi is in “discoverable” status or your Android device 
 
 ![](images/discoverable.png)
 
-Now your RPi can be connected through bluetooth and receive commands (data) from / send executed results to the Android app: [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi)
+Now your RPi can be connected through bluetooth and receive commands (SSID & password) from / send executed results to the Android app: [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi)
 
 ## [OPTIONAL] Automating the Bluetooth Pairing Process
 
@@ -74,10 +74,12 @@ Save it, Enable the service unit file:
 ![](images/rc.png)
 
 ### Step 5 - Set the “discoverableTimeout” to “0” in the file “/etc/bluetooth/main.conf”
-`sudo nano /etc/bluetooth/main.conf` ( you can set the value to what ever you want your RPi to stay in discoverable mode)
+`sudo nano /etc/bluetooth/main.conf` 
+
+(you can set the value to what ever you want your RPi to stay in discoverable mode)
 
 ![](images/main.png)
 
 ### Step 6 - Reboot your RPi
-Now, your RPi is able to be connected through bluetooth and receive commands (data) from / send executed results to the [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi) automatically
+Now, your RPi is able to be connected through bluetooth and receive commands (SSID & password) from / send executed results to the [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi) automatically
 
