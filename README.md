@@ -21,7 +21,27 @@ Add `-C` at the end of the `ExecStart=` line, to start the bluetooth daemon in '
 
 `ExecStartPost=/usr/bin/sdptool add SP`
 
-### Step 2 - Automatically listen to hci0 channel and run this python code
+### Step 2 - Save it and reboot your RPi
+
+After rebooting your RPi, Open terminal and run this command to listen to discovery request from Android device:
+
+`sudo rfcomm watch hci0`
+
+Open another terminal and run the python code
+
+`python2 /home/pi/DIRECTORY_TO_YOUR_PYTHON_CODE/bluetooth-RPi-wifi.py`
+
+NOTE: make sure your RPi is in “discoverable” status or your Android device might not find it, you can do it by clicking “Make Discoverable()” in bluetooth interface
+
+![](images/discoverable.png)
+
+Now your RPi can be connected through bluetooth and receive commands (data) from / send executed results to the Android app: [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi)
+
+## [OPTIONAL] Automating the Bluetooth Pairing Process
+
+You can automating the bluetooth pairing process by taking the following steps
+
+### Step 3 - Automatically listen to hci0 channel and run this python code
 Create a new service unit file:
 
 `sudo nano /etc/systemd/system/rfcomm.service`
@@ -47,17 +67,17 @@ Save it, Enable the service unit file:
 
 `sudo systemctl enable rfcomm`
 
-### Step 3 - Add the bash command `hciconfig hci0 piscan` in the file “/etc/rc.local” (before the last line of “exit 0”)
+### Step 4 - Add the bash command `hciconfig hci0 piscan` in the file “/etc/rc.local” (before the last line of “exit 0”)
 
 `sudo nano /etc/rc.local`
 
 ![](images/rc.png)
 
-### Step 4 - Set the “discoverableTimeout” to “0” in the file “/etc/bluetooth/main.conf”
+### Step 5 - Set the “discoverableTimeout” to “0” in the file “/etc/bluetooth/main.conf”
 `sudo nano /etc/bluetooth/main.conf` ( you can set the value to what ever you want your RPi to stay in discoverable mode)
 
 ![](images/main.png)
 
-### Step 5 - Reboot your RPi
-Now, your RPi is able to receive commands (data) from / send executed results to an Android device.
+### Step 6 - Reboot your RPi
+Now, your RPi is able to be connected through bluetooth and receive commands (data) from / send executed results to the [Bluetooth-RPi](https://github.com/Yurockkk/Bluetooth-RPi) automatically
 
