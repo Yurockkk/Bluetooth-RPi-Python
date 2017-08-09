@@ -8,7 +8,9 @@ Open terminal, install softwares:
 
 `sudo apt-get update`
 
-`sudo apt-get install bluez bluez-utils minicom`
+`sudo apt-get install bluez minicom`
+
+`sudo apt-get install bluez-utils`
 
 ### Step 1 - Setup the SPP (serial port profile) 
 Open terminal, edit this file
