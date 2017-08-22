@@ -37,7 +37,7 @@ class SerialComm:
 
     def isValidCommand(self, command, invalidCommand):
         if command not in invalidCommand:
-            if re.search("[a-zA-Z0-9. -]+",command):
+            if re.match("^[a-zA-Z0-9. -]+$",command):
                 return True
             
         return False
@@ -68,7 +68,7 @@ class SerialComm:
     def wifi_connect(self, ssid, psk):
         # write wifi config to file
         f = open('wifi.conf', 'w')
-        f.write('country=GB\n')
+        f.write('country=US\n')
         f.write('ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n')
         f.write('update_config=1\n')
         f.write('\n')
